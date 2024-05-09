@@ -1,13 +1,13 @@
 package com.wolfcode.kafkaproducer.service;
 
-import com.wolfcode.kafkaproducer.payload.Product;
+
+import com.wolfcode.kafkaproducer.dto.Product;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
+
+
 
 @Service
 @AllArgsConstructor
@@ -17,14 +17,10 @@ public class KafkaJsonPublisher {
     private final KafkaTemplate<String, Product> kafkaTemplate;
 
 
-    public void sendJsonPayload(Product product) {
+    public void sendJsonPayload(Product product){
 
         log.info(String.format("Payload Message sent %s", product));
 
-        Message<Product> message = MessageBuilder
-                .withPayload(product)
-                .setHeader(KafkaHeaders.TOPIC, "kafka_json")
-                .build();
-        kafkaTemplate.send(message);
+        kafkaTemplate.send("kafka-json-consumer", product);
     }
 }

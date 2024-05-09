@@ -1,15 +1,22 @@
 spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/consumer
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+
   application:
     name: kafka-consumer
+
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
-      group-id: GroupA
+      groupId: mainGroup
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        spring:
-          json:
-            trusted:
-              packages: '*'
+        spring.json.type.mapping: Json:com.wolfcode.kafkaconsumer.dto.Product

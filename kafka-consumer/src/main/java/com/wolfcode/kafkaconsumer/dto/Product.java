@@ -1,8 +1,12 @@
-package com.wolfcode.kafkaconsumer.payload;
+package com.wolfcode.kafkaconsumer.dto;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
     private Long id;
